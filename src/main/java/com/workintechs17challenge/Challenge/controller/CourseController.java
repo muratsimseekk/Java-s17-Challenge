@@ -77,4 +77,14 @@ public class CourseController {
         //TODO totalGpa degerini return et.
         return course;
     }
+    @DeleteMapping("/courses/{name}")
+    public void remove(@PathVariable String name){
+        for (Course course1 : courses){
+            if (course1.getName().equalsIgnoreCase(name)){
+                courses.remove(course1);
+                System.out.println(course1 + " kursu silindi . ");
+            }
+        }
+
+    }
 }
