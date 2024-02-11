@@ -1,5 +1,6 @@
 package com.workintechs17challenge.Challenge.controller;
 
+import com.workintechs17challenge.Challenge.exceptions.CourseValidation;
 import com.workintechs17challenge.Challenge.model.Course;
 import com.workintechs17challenge.Challenge.model.CourseGpa;
 import jakarta.annotation.PostConstruct;
@@ -41,6 +42,9 @@ public class CourseController {
 
     @GetMapping("/courses/{name}")
     public Course getCourseByName(@PathVariable String name){
+
+        CourseValidation.isCourseIsNotExist(courses,name);
+
         Course result = new Course();
         for (Course course : courses){
             if (course.getName().equalsIgnoreCase(name)){
@@ -51,6 +55,9 @@ public class CourseController {
     }
     @PostMapping("/courses")
     public Course saveNewCourse(@RequestBody Course course){
+
+        CourseValidation.isCourseCredentialValid(course);
+
         int totalGpa = 0;
         courses.add(course);
         if (course.getCredit() <=2){
